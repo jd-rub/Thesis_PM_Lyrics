@@ -43,12 +43,12 @@ class Markov_Char():
         likelihoods = next_char_vector/next_char_vector.sum()
         return weighted_choice(self.distinct_chars, likelihoods.toarray())
 
-    def predict_n(self, seed, n=2):
-        current_seed = seed
-        for _ in range(n):
-            seed += self.predict(current_seed)
-            current_seed = seed[-self.k:]
-        return seed
+    def generate_text(self, start_string, num_generate=2):
+        current_seed = start_string
+        for _ in range(num_generate):
+            start_string += self.predict(current_seed)
+            current_seed = start_string[-self.k:]
+        return start_string
 
     def save_to_disk(self, path = ""):
         if(path == ""):

@@ -1,4 +1,4 @@
-corpus_file = open("corpus.txt", encoding='utf-8')
+corpus_file = open("corpus_clean.txt", encoding='utf-8')
 corpus = corpus_file.read()
 
 test_data = (
@@ -20,9 +20,9 @@ corpus_suite = Metric_Suite(corpus, corpus)
 # print("SMOG Delta: ", test_suite.get_smog_delta())
 # print("Fleisch-Kincaid Score: ", test_suite.get_fleisch_kincaid_score())
 # print("Fleisch-Kincaid Delta: ", test_suite.get_fleisch_kincaid_delta())
-# print("Hunspell Score: ", test_suite.get_hunspell_score())
+print("Hunspell Score: ", corpus_suite.get_hunspell_score())
 # print("BLEU Score: ", test_suite.get_bleu_score())
 # print("Corpus BLEU Score: ", corpus_suite.get_bleu_score())
 # print("ROUGE Score: ", corpus_suite.get_rouge_score())#
 # print("Language Test Score: ", test_suite.get_language_tool_score())
-print("BLEURT Score: ", test_suite.get_bleurt_score())
+# print("BLEURT Score: ", test_suite.get_bleurt_score())

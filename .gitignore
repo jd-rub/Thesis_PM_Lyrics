@@ -4,3 +4,9 @@
 .vscode
 *.txt
 *__pycache__*
+genius/lyrics*
+metrics/bleurt
+*example*
+*demo*
+*checkpoint*
+*test*

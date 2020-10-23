@@ -38,12 +38,7 @@ class Markov_Adaptive():
                 generated_text += current_model.predict(current_seed)
 
                 if model_length < self.max_length:
-                    new_model_length = self.find_largest_possible_model(generated_text)
-                    if new_model_length < model_length:
-                        print("It happened")
-                    elif new_model_length > model_length:
-                        print("Model length increased")
-                    model_length = new_model_length
+                    model_length = self.find_largest_possible_model(generated_text)
                     current_model = self.models[model_length]
             except Exception as e: 
                 print(e)
@@ -52,7 +47,6 @@ class Markov_Adaptive():
                 # If model length > 1, reduce size
                 model_length /= 2
                 current_model = self.models[model_length]
-        print("Final model length: ", model_length)
         return generated_text
 
     def find_largest_possible_model(self, search_str):

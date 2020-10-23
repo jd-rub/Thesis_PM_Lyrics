@@ -3,7 +3,7 @@ import pickle
 from tqdm import tqdm
 from fix_corpus import fix_corpus
 
-with open('methods/lstm/songs', 'rb') as fp:
+with open('methods/data/songs', 'rb') as fp:
     songs = pickle.load(fp)
 
 clean_songs = []

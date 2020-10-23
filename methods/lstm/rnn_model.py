@@ -5,7 +5,7 @@ import os
 import time
 import pickle
 
-from one_hot_encoding import Encoder
+from .one_hot_encoding import Encoder
 
 class RNN_Config():
     def __init__(self, embedding_dim, batch_size, buffer_size, rnn_units, end_token):

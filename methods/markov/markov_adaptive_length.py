@@ -1,18 +1,20 @@
-import markov_char_based as markov
+# import markov_char_based as markov
+from .markov_char_based import load_from_file
 from tqdm import tqdm
-
-model_dir = "methods/markov/models/"
-
+from os import getcwd
+model_dir = "./methods/markov/models/"
+# model_dir = "models/"
 class Markov_Adaptive():
     def __init__(self, max_length):
         self.max_length = max_length
         self.models = dict()
 
     def load_models(self):
+        print(getcwd())
         model_lengths = list(filter(lambda x: x <= self.max_length, [1, 2, 4, 8, 16, 32, 64]))
         for i in tqdm(model_lengths, desc="Loading Markov Models"):
             if i <= self.max_length:
-                self.models[i] = markov.load_from_file(model_dir + str(i))
+                self.models[i] = load_from_file(model_dir + str(i))
             else: 
                 return
     

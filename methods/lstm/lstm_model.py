@@ -1,5 +1,5 @@
 from tensorflow.python.keras.layers.recurrent import LSTM
-from rnn_model import RNN_Model
+from .rnn_model import RNN_Model
 import tensorflow as tf
 
 class LSTM_Model(RNN_Model):

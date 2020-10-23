@@ -1,7 +1,7 @@
-import numpy as np
-from helpers import weighted_choice
+from .helpers import weighted_choice
 from scipy.sparse import dok_matrix
 import pickle
+from tqdm import tqdm
 
 DEFAULT_K = 2
 
@@ -30,7 +30,7 @@ class Markov_Char():
         self.k_chars_idx_dict = {char: i for i, char in enumerate(distinct_set_of_k_chars)} #
 
         # Fill next char matrix
-        for i, char in enumerate(sets_of_k_chars[:-self.k]):
+        for i, char in enumerate(tqdm(sets_of_k_chars[:-self.k], desc="Training Markov Model with k = " + str(self.k))):
             char_sequence_idx = self.k_chars_idx_dict[char]
             next_char_idx = char_idx_dict[corpus[i+self.k]]
             self.next_after_k_words_matrix[char_sequence_idx, next_char_idx] += 1

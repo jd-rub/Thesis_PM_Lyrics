@@ -10,3 +10,5 @@ metrics/bleurt
 *demo*
 *checkpoint*
 *test*
+*.metrics
+*.csv

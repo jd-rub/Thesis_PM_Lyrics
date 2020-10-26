@@ -18,20 +18,20 @@ class Corpus_Metrics:
         self.scores['grammar'] = self.grammar.get_score()
 
 # Testing corpus metrics
-import pickle
-with open("./run1/markov", "rb") as fp:
-    markov_corpus = pickle.load(fp)
+# import pickle
+# with open("./run1/markov", "rb") as fp:
+#     markov_corpus = pickle.load(fp)
 
-corpus = "".join(markov_corpus)
-metrics = Corpus_Metrics(corpus)
-metrics.calculate_metrics()
-print(str(metrics.scores))
+# corpus = "".join(markov_corpus)
+# metrics = Corpus_Metrics(corpus)
+# metrics.calculate_metrics()
+# print(str(metrics.scores))
 
-import pickle
-with open("./run1/lstm", "rb") as fp:
-    lstm_corpus = pickle.load(fp)
+# import pickle
+# with open("./run1/lstm", "rb") as fp:
+#     lstm_corpus = pickle.load(fp)
 
-corpus2 = "".join(lstm_corpus)
-metrics2 = Corpus_Metrics(corpus2)
-metrics2.calculate_metrics()
-print(str(metrics2.scores))
+# corpus2 = "".join(lstm_corpus)
+# metrics2 = Corpus_Metrics(corpus2)
+# metrics2.calculate_metrics()
+# print(str(metrics2.scores))

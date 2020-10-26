@@ -1,7 +1,7 @@
-# Generate random input strings
 AMOUNT_STRINGS = 10
 INPUT_LENGTH = 8
 OUTPUT_LENGTH = 1000
+OUTPUT_PATH = "./run2/"
 
 import json
 import pickle
@@ -10,6 +10,7 @@ with open("methods/data/alphabet.json", "rb") as fp:
 chars = alphabet['allowed_chars']
 print(chars)
 
+# Generate random input strings
 import random
 def generate_random_string(alphabet=chars, length=INPUT_LENGTH):
     output = random.choices(alphabet, k=length)
@@ -40,16 +41,14 @@ for input in tqdm(input_strings, desc="Generating LSTM outputs"):
     generated_text = lstm.generate_text(input, temperature=0.5)
     lstm_outputs.append(generated_text)
 
-output_path = "/run1/"
 import os
+os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
 
-os.makedirs(os.path.dirname(output_path), exist_ok=True)
-
-with open(output_path + "inputs", "wb") as fp:
+with open(OUTPUT_PATH + "inputs", "wb") as fp:
     pickle.dump(input_strings, fp)
 
-with open(output_path + "markov", "wb") as fp:
+with open(OUTPUT_PATH + "markov", "wb") as fp:
     pickle.dump(markov_outputs, fp)
 
-with open(output_path + "lstm", "wb") as fp:
+with open(OUTPUT_PATH + "lstm", "wb") as fp:
     pickle.dump(lstm_outputs, fp)

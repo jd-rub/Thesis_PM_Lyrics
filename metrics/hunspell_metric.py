@@ -1,9 +1,10 @@
-from metric import Metric
+from .metric import Metric
 from hunspell import Hunspell
 from Levenshtein import _levenshtein
 from nltk.tokenize import word_tokenize
 import string
 import time
+from tqdm import tqdm
 h = Hunspell()
 #h._system_encoding = 'UTF-8'
 
@@ -14,20 +15,30 @@ class Hunspell_Metric(Metric):
     has_done_work = False
 
     def do_work(self):
-        starttime = time.time_ns() / 1000000000
+        self.calculate_misspellings()
+        self.calculate_distances()
+        self.has_done_work = True
+
+    def get_score(self):
+        if not self.has_done_work:
+            self.do_work()
+        return self.sum_distances
+
+    def calculate_misspellings(self):
+        self.all_words = []
         # Tokenize and find correct/incorrect words
-        rows = self.output_data.split("\n")
-        for row in rows:
+        rows = self.input_data.split("\n")
+        for row in tqdm(rows, desc="Finding misspellings"):
             words = word_tokenize(row)
+            self.all_words.append(words)
             tokens = list(filter(lambda token: token not in (string.punctuation + "“”…—``"), words))
             for token in tokens:
                 if h.spell(token):
                     self.correct_words.append(token)
                 else:
                     self.incorrect_words.append(token)
-        time2 = time.time_ns() / 1000000000
-        print("Done with tokens and spellcheck after", str(time2-starttime))
-        # Sum Levenshtein distances of incorrect words
+
+    def calculate_distances(self):
         self.sum_distances = 0
         for word in self.incorrect_words:
             suggestions = h.suggest(word)
@@ -38,14 +49,6 @@ class Hunspell_Metric(Metric):
                 self.full_data.append([word, suggestion, distance])
             else:
                 self.full_data.append([word, None, 0])
-        time3 = time.time_ns() / 1000000000
-        print("Done with Levenshtein after", str(time3-time2))
-        self.has_done_work = True
-
-    def get_score(self):
-        if not self.has_done_work:
-            self.do_work()
-        return self.sum_distances
 
 
 def calc_distance(w0, w1):

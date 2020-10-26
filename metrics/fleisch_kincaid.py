@@ -1,4 +1,4 @@
-from metric import Metric
+from .metric import Metric
 from textstat import textstat
 """
 test_data = (
@@ -17,6 +17,6 @@ print(textstat.flesch_kincaid_grade(test_data))
 """
 class Fleisch_Kincaid(Metric):
     def get_score(self):
-        return textstat.flesch_kincaid_grade(self.output_data)
+        return textstat.flesch_kincaid_grade(self.input_data)
     def get_delta(self):
         return abs(textstat.flesch_kincaid_grade(self.input_data) - textstat.flesch_kincaid_grade(self.output_data))

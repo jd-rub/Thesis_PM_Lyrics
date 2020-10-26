@@ -1,4 +1,4 @@
-from metric import Metric
+from .metric import Metric
 from textstat import textstat
 """
 test_data = (
@@ -17,6 +17,6 @@ print(textstat.smog_index(test_data))
 """
 class SMOG(Metric):
     def get_score(self):
-        return textstat.smog_index(self.output_data)
+        return textstat.smog_index(self.input_data)
     def get_delta(self):
         return abs(textstat.smog_index(self.input_data) - textstat.smog_index(self.output_data))

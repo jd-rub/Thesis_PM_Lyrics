@@ -1,4 +1,4 @@
-from metric import Metric
+from .metric import Metric
 from nltk.tokenize import word_tokenize
 from nltk.tokenize import sent_tokenize
 from threading import Thread

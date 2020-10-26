@@ -1,5 +1,5 @@
 from rouge import Rouge
-from metric import Metric
+from .metric import Metric
 
 class Rouge_Metric(Metric):
     def get_score(self):

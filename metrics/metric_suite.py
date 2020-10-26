@@ -1,10 +1,10 @@
-from smog import SMOG
-from fleisch_kincaid import Fleisch_Kincaid
-from hunspell_metric import Hunspell_Metric
-from bleu import Bleu_Metric
-from rouge_metric import Rouge_Metric
-from grammar import Language_Tool_Metric
-from bleurt_metric import Bleurt_Metric
+from .smog import SMOG
+from .fleisch_kincaid import Fleisch_Kincaid
+from .hunspell_metric import Hunspell_Metric
+from .bleu import Bleu_Metric
+from .rouge_metric import Rouge_Metric
+from .grammar import Language_Tool_Metric
+from .bleurt_metric import Bleurt_Metric
 
 class Metric_Suite():
     def __init__(self, input_data, output_data):

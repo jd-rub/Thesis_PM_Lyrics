@@ -1,5 +1,5 @@
 from bleurt import score
-from metric import Metric
+from .metric import Metric
 # USAGE EXAMPLE: 
 # References and candidates MUST be lists, single strings need to be wrapped in a single-element list
 # checkpoint = "metrics/bleurt/bleurt-base-128"

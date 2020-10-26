@@ -8,12 +8,12 @@
 # doc = nlp(test)
 
 import language_tool_python
-from metric import Metric
+from .metric import Metric
 
 tool = language_tool_python.LanguageTool('en-US')
 
 class Language_Tool_Metric(Metric):
     matches = None
     def get_score(self):
-        self.matches = tool.check(self.output_data)
+        self.matches = tool.check(self.input_data)
         return len(self.matches)

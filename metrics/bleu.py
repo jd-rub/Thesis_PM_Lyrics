@@ -5,7 +5,7 @@ from threading import Thread
 import time
 
 from nltk.translate.bleu_score import corpus_bleu
-
+from nltk.translate.bleu_score import sentence_bleu
 class Bleu_Metric(Metric):
     def get_score(self):
         # BLEU requires a list of references (Our original corpus)
@@ -17,18 +17,13 @@ class Bleu_Metric(Metric):
         # TODO: Add solution for unequal lengths. Padding seems easiest.
         # TODO: BLEU rates empty lines with 0 score, even if correctly identified as empty lines
 
-        print("BLEU: Starting reference tokenization")
-        list_of_reference_rows = self.input_data.split("\n")
-        list_of_references = [[word_tokenize(row)] for row in list_of_reference_rows]
-        print("BLEU: Done.")
-
-        print("BLEU: Starting hypotheses tokenization")
-        list_of_hypotheses_rows = self.output_data.split("\n")
-        list_of_hypotheses = [word_tokenize(row) for row in list_of_hypotheses_rows]
-        print("BLEU: Done.")
+        reference = word_tokenize(self.input_data)
+        hypothesis = word_tokenize(self.output_data)
         
-        print("BLEU: Starting BLEU calculation")
-        score = corpus_bleu(list_of_references, list_of_hypotheses)
-        print("BLEU: Done.")
+        scores = dict()
+        scores['BLEU-1'] = sentence_bleu([reference], hypothesis, weights=(1, 0, 0, 0))
+        scores['BLEU-2'] = sentence_bleu([reference], hypothesis, weights=(0.5, 0.5, 0, 0))
+        scores['BLEU-3'] = sentence_bleu([reference], hypothesis, weights=(1/3, 1/3, 1/3, 0))
+        scores['BLEU-4'] = sentence_bleu([reference], hypothesis)
 
-        return score
+        return scores

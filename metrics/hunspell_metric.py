@@ -1,7 +1,7 @@
 from .metric import Metric
 import hunspell
 from Levenshtein import _levenshtein
-from nltk.tokenize import word_tokenize
+from nltk.tokenize import TweetTokenizer
 import string
 import time
 from tqdm import tqdm
@@ -16,15 +16,18 @@ class Hunspell_Metric(Metric):
         self.full_data = [] # Tuples of [Original-Word, Hunspell-Suggestion, Levenshtein-Distance]
         self.has_done_work = False
 
+        self.tokenizer = TweetTokenizer()
+
     def do_work(self):
         self.calculate_misspellings()
-        self.calculate_distances()
+        # self.calculate_distances()
         self.has_done_work = True
 
     def get_score(self):
         if not self.has_done_work:
             self.do_work()
-        return self.sum_distances
+        # return self.sum_distances
+        return len(self.incorrect_words)
 
     def calculate_misspellings(self):
         self.all_words = []
@@ -32,7 +35,7 @@ class Hunspell_Metric(Metric):
         rows = self.input_data.split("\n")
         # for row in tqdm(rows, desc="Finding misspellings"):
         for row in rows:
-            words = word_tokenize(row)
+            words = self.tokenizer.tokenize(row)
             self.all_words.append(words)
             tokens = list(filter(lambda token: token not in (string.punctuation + "“”…—``"), words))
             for token in tokens:

@@ -17,6 +17,7 @@ print(textstat.smog_index(test_data))
 """
 class SMOG(Metric):
     def get_score(self):
+        self.input_data = self.input_data.replace("\n", ". ")
         return textstat.smog_index(self.input_data)
     def get_delta(self):
         return abs(textstat.smog_index(self.input_data) - textstat.smog_index(self.output_data))

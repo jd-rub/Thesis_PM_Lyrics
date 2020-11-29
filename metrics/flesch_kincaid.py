@@ -15,8 +15,10 @@ test_data = (
 
 print(textstat.flesch_kincaid_grade(test_data))
 """
-class Fleisch_Kincaid(Metric):
+class Flesch(Metric):
     def get_score(self):
-        return textstat.flesch_kincaid_grade(self.input_data)
+        self.input_data = self.input_data.replace("\n", ". ")
+        return textstat.flesch_reading_ease(self.input_data)
+        # return textstat.flesch_kincaid_grade(self.input_data)
     def get_delta(self):
         return abs(textstat.flesch_kincaid_grade(self.input_data) - textstat.flesch_kincaid_grade(self.output_data))
